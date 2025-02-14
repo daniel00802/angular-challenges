@@ -5,17 +5,17 @@ import { City } from '../model/city.model';
   providedIn: 'root',
 })
 export class CityStore {
-  private cities = signal<City[]>([]);
+  public cities = signal<City[]>([]);
 
   addAll(cities: City[]) {
     this.cities.set(cities);
   }
 
-  addOne(student: City) {
-    this.cities.set([...this.cities(), student]);
+  addOne(city: City) {
+    this.cities.set([...this.cities(), city]);
   }
 
   deleteOne(id: number) {
-    this.cities.set(this.cities().filter((s) => s.id !== id));
+    this.cities.set(this.cities().filter((c) => c.id !== id));
   }
 }

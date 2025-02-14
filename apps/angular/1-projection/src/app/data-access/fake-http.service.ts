@@ -16,7 +16,7 @@ import { Teacher, subject } from '../model/teacher.model';
 
 const factoryTeacher = incrementalNumber();
 
-export const randTeacher = () => ({
+export const randTeacher = (): Teacher => ({
   id: factoryTeacher(),
   firstName: randFirstName(),
   lastName: randLastName(),
@@ -56,7 +56,13 @@ export const randomCity = (): City => ({
   country: randCountry(),
 });
 
-const cities = [randomCity(), randomCity(), randomCity()];
+const cities: City[] = [
+  randomCity(),
+  randomCity(),
+  randomCity(),
+  randomCity(),
+  randomCity(),
+];
 
 @Injectable({
   providedIn: 'root',

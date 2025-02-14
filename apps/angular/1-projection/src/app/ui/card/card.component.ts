@@ -17,7 +17,7 @@ import { ListItemComponent } from '../list-item/list-item.component';
     <div
       class="flex w-fit flex-col gap-3 rounded-md border-2 border-black p-4"
       [class]="customClass()">
-      @if (type() === CardType.TEACHER) {
+      <!-- @if (type() === CardType.TEACHER) {
         <img ngSrc="assets/img/teacher.png" width="200" height="200" />
       }
       @if (type() === CardType.STUDENT) {
@@ -25,21 +25,15 @@ import { ListItemComponent } from '../list-item/list-item.component';
       }
       @if (type() === CardType.CITY) {
         <img ngSrc="assets/img/city.png" width="200" height="200" />
-      }
+      } -->
+      <img [ngSrc]="imageMap[type()]" width="200" height="200" />
 
       <section>
         @for (item of list(); track item) {
-          @if (type() === CardType.CITY) {
-            <app-list-item
-              [name]="item.name"
-              [id]="item.id"
-              [type]="type()"></app-list-item>
-          } @else {
-            <app-list-item
-              [name]="item.firstName"
-              [id]="item.id"
-              [type]="type()"></app-list-item>
-          }
+          <app-list-item
+            [name]="type() === CardType.CITY ? item.name : item.firstName"
+            [id]="item.id"
+            [type]="type()"></app-list-item>
         }
       </section>
 
@@ -62,6 +56,12 @@ export class CardComponent {
   readonly customClass = input('');
 
   CardType = CardType;
+
+  imageMap: Record<CardType, string> = {
+    [CardType.TEACHER]: 'assets/img/teacher.png',
+    [CardType.STUDENT]: 'assets/img/student.webp',
+    [CardType.CITY]: 'assets/img/city.png',
+  };
 
   addNewItem() {
     const type = this.type();

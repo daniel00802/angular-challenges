@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { CityStore } from '../../data-access/city.store';
 import { FakeHttpService } from '../../data-access/fake-http.service';
@@ -19,11 +20,12 @@ import { CardComponent } from '../../ui/card/card.component';
   `,
   styles: [
     `
-      ::ng-deep .bg-light-red {
+      .bg-light-red {
         background-color: rgba(250, 0, 0, 0.1);
       }
     `,
   ],
+  encapsulation: ViewEncapsulation.None,
   imports: [CardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

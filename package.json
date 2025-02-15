@@ -36,6 +36,7 @@
     "@swc/helpers": "0.5.12",
     "@tanstack/angular-query-experimental": "5.62.3",
     "rxjs": "7.8.1",
+    "solid-js": "^1.9.4",
     "tailwindcss": "3.4.3",
     "tslib": "^2.3.0",
     "zone.js": "0.15.0"

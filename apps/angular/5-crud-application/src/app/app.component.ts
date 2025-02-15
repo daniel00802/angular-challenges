@@ -7,12 +7,12 @@ import { Todo } from './model/todo.model';
   imports: [CommonModule],
   selector: 'app-root',
   template: `
-    <div *ngFor="let todo of Todos">
+    <div *ngFor="let todo of todoStore.todos()">
       {{ todo.title }}
       &nbsp;
       <button (click)="update(todo)">Update</button>
       &nbsp;
-      <button (click)="update(todo)">Delete</button>
+      <button (click)="delet(todo)">Delete</button>
       <br />
       <br />
     </div>
@@ -20,17 +20,20 @@ import { Todo } from './model/todo.model';
   styles: [],
 })
 export class AppComponent implements OnInit {
-  private todoStore = inject(TodoStore);
+  public todoStore = inject(TodoStore);
   // todos!: Todo[];
-  Todos: Todo[] = [];
+  // Todos: Todo[] = this.todoStore.todos();
 
   ngOnInit(): void {
     this.todoStore.getAll();
-    console.log(this.todoStore.todos());
   }
 
   update(todo: Todo) {
     this.todoStore.updateOne(todo);
+  }
+
+  delet(todo: Todo) {
+    this.todoStore.deleteOne(todo);
   }
 }
 

@@ -1,13 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { LoadingSpinnerComponent } from './component/loading-spinner.component';
 import { TodoStore } from './data-access/store';
+import { LoadingSpinnerService } from './loading-spinner.service';
 import { Todo } from './model/todo.model';
 
 @Component({
-  imports: [CommonModule],
+  imports: [CommonModule, LoadingSpinnerComponent],
   selector: 'app-root',
   template: `
-    <div *ngFor="let todo of todoStore.todos()">
+    <app-loading-spinner
+      *ngIf="loadingSpinnerService.isLoading()"></app-loading-spinner>
+    <div *ngFor="let todo of this.todoStore.todos()">
       {{ todo.title }}
       &nbsp;
       <button (click)="update(todo)">Update</button>
@@ -21,69 +25,28 @@ import { Todo } from './model/todo.model';
 })
 export class AppComponent implements OnInit {
   public todoStore = inject(TodoStore);
-  // todos!: Todo[];
-  // Todos: Todo[] = this.todoStore.todos();
+  public loadingSpinnerService = inject(LoadingSpinnerService);
+  // store = inject(Store);
+
+  // constructor(public store: Store) {}
+  // todos = this.store.select(selectTodos);
 
   ngOnInit(): void {
+    // this.store.dispatch(getTodos());
+    // this.todos.subscribe(() => {
+    // console.log('Only here... appears');
+    // });
     this.todoStore.getAll();
+    // console.log(this.todos);
   }
 
   update(todo: Todo) {
+    // this.store.dispatch(updateTodo({ todo }));
     this.todoStore.updateOne(todo);
   }
 
   delet(todo: Todo) {
+    // this.store.dispatch(deleteTodo({ id: todo.id }));
     this.todoStore.deleteOne(todo);
   }
 }
-
-// import { CommonModule } from '@angular/common';
-// import { HttpClient } from '@angular/common/http';
-// import { Component, OnInit } from '@angular/core';
-// import { randText } from '@ngneat/falso';
-
-// @Component({
-//   imports: [CommonModule],
-//   selector: 'app-root',
-//   template: `
-//     <div *ngFor="let todo of todos">
-//       {{ todo.title }}
-//       <button (click)="update(todo)">Update</button>
-//     </div>
-//   `,
-//   styles: [],
-// })
-// export class AppComponent implements OnInit {
-//   todos!: any[];
-
-//   constructor(private http: HttpClient) {}
-
-//   ngOnInit(): void {
-//     this.http
-//       .get<any[]>('https://jsonplaceholder.typicode.com/todos')
-//       .subscribe((todos) => {
-//         this.todos = todos;
-//       });
-//   }
-
-//   update(todo: any) {
-//     this.http
-//       .put<any>(
-//         `https://jsonplaceholder.typicode.com/todos/${todo.id}`,
-//         JSON.stringify({
-//           todo: todo.id,
-//           title: randText(),
-//           body: todo.body,
-//           userId: todo.userId,
-//         }),
-//         {
-//           headers: {
-//             'Content-type': 'application/json; charset=UTF-8',
-//           },
-//         },
-//       )
-//       .subscribe((todoUpdated: any) => {
-//         this.todos[todoUpdated.id - 1] = todoUpdated;
-//       });
-//   }
-// }

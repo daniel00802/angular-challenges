@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   imports: [],
   selector: 'app-root',
+  standalone: true,
   styles: `
     section {
       @apply flex flex-1 flex-col gap-5;
@@ -17,7 +19,7 @@ import { Component } from '@angular/core';
     }
   `,
   template: `
-    <div class="mx-20 my-40 flex gap-5">
+    <div [@fadeIn] *ngIf="showContent" class="mx-20 my-40 flex gap-5">
       <section>
         <div>
           <h3>2008</h3>
@@ -83,5 +85,23 @@ import { Component } from '@angular/core';
       </section>
     </div>
   `,
+  animations: [
+    // Define animations here
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [animate('500ms', style({ opacity: 0 }))]),
+    ]),
+  ],
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  showContent = false;
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.showContent = true;
+    }, 200);
+  }
+}

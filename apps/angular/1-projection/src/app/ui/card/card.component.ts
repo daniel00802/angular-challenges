@@ -26,7 +26,8 @@ import { ListItemComponent } from '../list-item/list-item.component';
       @if (type() === CardType.CITY) {
         <img ngSrc="assets/img/city.png" width="200" height="200" />
       } -->
-      <img [ngSrc]="imageMap[type()]" width="200" height="200" />
+      <!-- <img [ngSrc]="imageMap[type()]" width="200" height="200" /> -->
+      <ng-content select="card-image"></ng-content>
 
       <section>
         @for (item of list(); track item) {

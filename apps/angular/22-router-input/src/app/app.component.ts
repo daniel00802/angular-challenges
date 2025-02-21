@@ -8,6 +8,7 @@ import { RouterLink, RouterModule } from '@angular/router';
   template: `
     <label for="userName">UserName</label>
     <input id="userName" type="text" [formControl]="userName" />
+    <p></p>
     <label for="testId">TestId</label>
     <input id="testId" type="number" [formControl]="testId" />
     <button
@@ -15,7 +16,9 @@ import { RouterLink, RouterModule } from '@angular/router';
       [queryParams]="{ user: userName.value }">
       Test
     </button>
-    <button routerLink="/">HOME</button>
+    <p></p>
+    <button routerLink="">HOME</button>
+    <p></p>
     <router-outlet></router-outlet>
   `,
 })

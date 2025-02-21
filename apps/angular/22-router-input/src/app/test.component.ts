@@ -1,21 +1,25 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-subscription',
   imports: [AsyncPipe],
   template: `
-    <div>TestId: {{ testId$ | async }}</div>
-    <div>Permission: {{ permission$ | async }}</div>
-    <div>User: {{ user$ | async }}</div>
+    <div>TestId: {{ testId }}</div>
+    <div>Permission: {{ permission }}</div>
+    <div>User: {{ user }}</div>
   `,
 })
 export default class TestComponent {
-  private activatedRoute = inject(ActivatedRoute);
+  // @Input({ required: true, alias: 'testId', routeParam: 'testId' }) testId!: string;
+  // @Input({ required: true, alias: 'permission', routeData: 'permission' }) permission!: string;
+  // @Input({ alias: 'user', queryParam: 'user' }) user?: string;
+  @Input() testId!: string;
+  @Input() permission!: string;
+  @Input() user!: string;
+  // private activatedRoute = inject(ActivatedRoute);
 
-  testId$ = this.activatedRoute.params.pipe(map((p) => p['testId']));
-  permission$ = this.activatedRoute.data.pipe(map((d) => d['permission']));
-  user$ = this.activatedRoute.queryParams.pipe(map((q) => q['user']));
+  // testId$ = this.activatedRoute.params.pipe(map((p) => p['testId']));
+  // permission$ = this.activatedRoute.data.pipe(map((d) => d['permission']));
+  // user$ = this.activatedRoute.queryParams.pipe(map((q) => q['user']));
 }

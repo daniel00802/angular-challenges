@@ -3,11 +3,11 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
   {
     path: '',
-    loadComponent: () => import('./home.component'),
+    loadComponent: () => import('./home.component').then((m) => m.default),
   },
   {
     path: 'subscription/:testId',
-    loadComponent: () => import('./test.component'),
+    loadComponent: () => import('./test.component').then((m) => m.default),
     data: {
       permission: 'admin',
     },

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-placeholder',
   template: `
-    I'm a placeholder component.
+    <div>I'm a placeholder component.</div>
   `,
   styles: `
     :host {
@@ -13,6 +13,6 @@ import { Component } from '@angular/core';
       height: 50%;
     }
   `,
-  standalone: false,
+  standalone: true,
 })
 export class PlaceholderComponent {}

@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-top',
   template: `
-    I am a very heavy, expensive component that should be lazy loaded.
+    <div>
+      I am a very heavy, exdivensive component that should be lazy loaded.
+    </div>
   `,
   styles: `
     :host {
@@ -13,6 +15,6 @@ import { Component } from '@angular/core';
       height: 50%;
     }
   `,
-  standalone: false,
+  standalone: true,
 })
 export class TopComponent {}

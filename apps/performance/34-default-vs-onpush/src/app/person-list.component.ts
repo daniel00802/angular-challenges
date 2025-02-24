@@ -7,6 +7,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { FormFieldComponent } from './form-input.component';
 
 @Component({
   selector: 'app-person-list',
@@ -18,20 +19,13 @@ import { MatListModule } from '@angular/material/list';
     MatInputModule,
     MatChipsModule,
     CDFlashingDirective,
+    FormFieldComponent,
   ],
   template: `
     <h1 class="text-center font-semibold" title="Title">
       {{ title | titlecase }}
     </h1>
-
-    <mat-form-field class="w-4/5">
-      <input
-        placeholder="Add one member to the list"
-        matInput
-        type="text"
-        [(ngModel)]="label"
-        (keydown)="handleKey($event)" />
-    </mat-form-field>
+    <app-form-field [names]="names" />
 
     <mat-list class="flex w-full">
       <div *ngIf="names?.length === 0" class="empty-list-label">Empty list</div>
@@ -56,13 +50,4 @@ import { MatListModule } from '@angular/material/list';
 export class PersonListComponent {
   @Input() names: string[] = [];
   @Input() title = '';
-
-  label = '';
-
-  handleKey(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      this.names?.unshift(this.label);
-      this.label = '';
-    }
-  }
 }

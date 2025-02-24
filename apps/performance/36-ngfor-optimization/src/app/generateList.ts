@@ -4,7 +4,7 @@ import { Person } from './person.model';
 export function generateList() {
   const arr: Person[] = [];
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 500; i++) {
     arr.push({
       email: randEmail(),
       name: randFirstName(),

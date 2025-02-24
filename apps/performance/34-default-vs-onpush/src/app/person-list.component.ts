@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { CDFlashingDirective } from '@angular-challenges/shared/directives';
 import { CommonModule } from '@angular/common';
@@ -20,11 +20,11 @@ import { MatListModule } from '@angular/material/list';
     CDFlashingDirective,
   ],
   template: `
-    <h1 cd-flash class="text-center font-semibold" title="Title">
+    <h1 class="text-center font-semibold" title="Title">
       {{ title | titlecase }}
     </h1>
 
-    <mat-form-field class="w-4/5" cd-flash>
+    <mat-form-field class="w-4/5">
       <input
         placeholder="Add one member to the list"
         matInput
@@ -51,6 +51,7 @@ import { MatListModule } from '@angular/material/list';
   host: {
     class: 'w-full flex flex-col items-center',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonListComponent {
   @Input() names: string[] = [];

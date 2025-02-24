@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-random',
   template: `
-    <div cd-flash>I do nothing but I'm here</div>
+    <div>I do nothing but I'm here</div>
   `,
   imports: [CDFlashingDirective],
 })

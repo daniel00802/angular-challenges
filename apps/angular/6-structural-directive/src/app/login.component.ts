@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { ButtonComponent } from './button.component';
 import { InformationComponent } from './information.component';
 import {
@@ -14,7 +16,7 @@ import {
 import { UserStore } from './user.store';
 
 @Component({
-  imports: [InformationComponent, RouterLink, ButtonComponent],
+  imports: [InformationComponent, RouterLink, ButtonComponent, CommonModule],
   selector: 'app-login',
   template: `
     <header class="flex items-center gap-3">
@@ -30,13 +32,30 @@ import { UserStore } from './user.store';
 
     <app-information></app-information>
 
-    <button app-button class="mt-10" routerLink="enter">
+    <button app-button class="mt-10" [routerLink]="dashboardRoute$ | async">
       Enter application
     </button>
+    <!-- <button app-button class="mt-10" routerLink="enter">
+      Enter application
+    </button> -->
   `,
 })
 export class LoginComponent {
+  user$ = this.userStore.user$;
+
   constructor(private userStore: UserStore) {}
+
+  dashboardRoute$: Observable<string> = this.user$.pipe(
+    map((user) => {
+      if (!user) return '/'; // Redirect to login if no user
+
+      if (user.isAdmin) return '/admin-dashboard';
+      if (user.roles.includes('MANAGER')) return '/manager-dashboard';
+      if (user.roles.includes('CLIENT')) return '/client-dashboard';
+
+      return '/'; // Default to login
+    }),
+  );
 
   admin() {
     this.userStore.add(admin);

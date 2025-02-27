@@ -43,7 +43,7 @@ export const client: User = {
 };
 
 export const everyone: User = {
-  name: 'client',
+  name: '',
   isAdmin: false,
   roles: [],
 };
